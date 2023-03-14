@@ -1,0 +1,40 @@
+.table-wrapper {
+  overflow-x: scroll;
+  padding: 20px;
+}
+table {
+  border-collapse: collapse;
+  border: 1px solid #252525;
+  border-radius: 5px;
+  text-align: center;
+}
+table th {
+  border: 1px solid #252525;
+  padding: 10px;
+  background-color: #1a7e11;
+  color: #fff;
+}
+table td {
+  border: 1px solid #252525;
+  padding: 10px;
+}
+table .ubah a {
+  text-decoration: none;
+  color: orange;
+}
+table .ubah:hover {
+  background-color: orange;
+}
+table .ubah:hover a {
+  color: #fff;
+}
+table .hapus a {
+  text-decoration: none;
+  color: red;
+}
+table .hapus:hover {
+  background-color: red;
+}
+table .hapus:hover a {
+  color: #fff;
+} /*# sourceMappingURL=table.css.map */

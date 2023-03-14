@@ -1,0 +1,274 @@
+.tambah-data {
+  border: 1px solid blue;
+  border-radius: 5px;
+  width: max-content;
+  padding: 5px;
+}
+
+.tambah-data:hover {
+  border: 1px solid white;
+  background-color: blue;
+}
+
+.tambah-data:hover a {
+  color: white;
+}
+
+.tambah-data a {
+  text-decoration: none;
+  color: blue;
+}
+
+.reset {
+  color: red;
+  border: 1px solid red;
+  background-color: white;
+}
+
+.submit {
+  color: green;
+  border: 1px solid green;
+  background-color: white;
+}
+
+.reset:hover {
+  color: white;
+  border: 1px solid white;
+  background-color: red;
+}
+
+.submit:hover {
+  color: white;
+  border: 1px solid white;
+  background-color: green;
+}
+
+body {
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background-color: #3cb138;
+  color: #fff;
+  padding: 5px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #ffffff;
+}
+
+aside {
+  background-color: #206a5d;
+  width: 150px;
+  padding: 0px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+li a {
+  text-decoration: none;
+  color: #fff;
+  padding: 10px;
+  display: block;
+}
+
+li a:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+main {
+  padding: 20px;
+  overflow: auto;
+  width: 85%;
+}
+
+h2 {
+  color: #333;
+  margin-top: 0;
+}
+
+input[type="date"] {
+  width: 500px;
+  height: 40px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #bdbdbd;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+button {
+  background-color: #bfdcae;
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+button:hover {
+  background-color: green;
+  color: white;
+}
+
+.a table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.a td,
+.a th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.a tr:nth-child(even) {
+  background-color: #bfdcae;
+}
+
+.a tr:hover {
+  background-color: #ddd;
+}
+
+.a th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04aa6d;
+  color: white;
+}
+
+footer {
+  background-color: #3cb138;
+  color: #fff;
+  padding: 10px;
+}
+.cari {
+  margin-left: -10px;
+  margin-top: -30px;
+}
+
+.cari input[type="text"] {
+  width: 250px;
+  padding: 5px 10px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #252525ff;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
+}
+
+.cari td,
+.cari table {
+  border: none;
+}
+
+.cari button {
+  background: none;
+  color: black;
+  padding: 0px;
+  margin-left: -20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+.cari img {
+  width: 30px;
+}
+
+.cari button:hover {
+  background: none;
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  header {
+    text-align: center;
+    background-color: #3cb138;
+    color: #fff;
+    padding: 5px;
+  }
+  aside {
+    background-color: #206a5d;
+    padding: 5px;
+    color: #ffffff;
+  }
+  li {
+    float: left;
+  }
+
+  li a {
+    text-decoration: none;
+    color: #ffffff;
+  }
+
+  li a:hover {
+    background-color: #fff;
+    color: black;
+  }
+  footer {
+    text-align: center;
+    background-color: #3cb138;
+    color: #fff;
+    padding: 10px;
+  }
+  main {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  aside {
+    width: 100%;
+  }
+  main {
+    width: 100%;
+  }
+}
