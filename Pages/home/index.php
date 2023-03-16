@@ -1,13 +1,12 @@
 <?php
 session_start();
 if (!isset($_SESSION['login'])) {
-    header('location: ../login/login.php ');
+    header('location: ../login/login.php');
 }
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<a href="../login/login.php"></a>
 
 <head>
     <title>Halaman Administrator</title>

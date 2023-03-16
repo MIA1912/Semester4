@@ -1,0 +1,65 @@
+table.greenTable .ubah a {
+  text-decoration: none;
+  color: #d3651c;
+}
+
+table.greenTable .ubah:hover {
+  background-color: orange;
+}
+
+table.greenTable .ubah:hover a {
+  color: #fff;
+}
+
+table.greenTable .hapus a {
+  text-decoration: none;
+  color: red;
+}
+
+table.greenTable .hapus:hover {
+  background-color: red;
+}
+
+table.greenTable .hapus:hover a {
+  color: #fff;
+}
+
+table.greenTable {
+  font-family: arial, Times, serif;
+  border: 2px solid #1d762e;
+  background-color: #e2ffdf;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+table.greenTable td,
+table.greenTable th {
+  border: 1px solid #24943a;
+  padding: 5px 10px;
+}
+
+table.greenTable tbody td {
+  font-size: 15px;
+}
+
+table.greenTable tr:nth-child(even) {
+  background: #75f886;
+}
+
+table.greenTable thead {
+  background: #1a7e11;
+  border-bottom: 0px solid #444444;
+}
+
+table.greenTable thead th {
+  font-size: 19px;
+  font-weight: bold;
+  color: #f0f0f0;
+  text-align: center;
+  border-left: 2px solid #24943a;
+}
+
+table.greenTable thead th:first-child {
+  border-left: none;
+}

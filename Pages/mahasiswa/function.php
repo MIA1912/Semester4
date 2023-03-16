@@ -1,5 +1,4 @@
 <?php
-
 function hapus($mhs_nim)
 {
     global $conn;

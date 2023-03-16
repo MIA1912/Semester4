@@ -50,7 +50,7 @@ function tambah($data)
 
 function cari($keyword)
 {
-    $query = "SELECT * FROM mahasiswa 
+    $query = "SELECT * FROM kelas 
     WHERE
     kelas_kd LIKE '%$keyword' OR
     kelas_nama LIKE '%$keyword%'

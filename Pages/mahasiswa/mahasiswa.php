@@ -7,7 +7,30 @@ if (!isset($_SESSION['login'])) {
 
 require_once "function.php";
 require_once "../utility/conSQL.php";
-$mahasiswa = query("SELECT * FROM mahasiswa");
+
+/*
+    * Pagination
+    Konfigurasi
+*/
+$jlhDataperHal = 4;
+$jlhData = count(query("SELECT * FROM mahasiswa"));
+$jlhHal = ceil($jlhData / $jlhDataperHal);
+// ceil adalah function untuk mengubah pecahan ke decimal
+$halAktif = (isset($_GET['hal'])) ? $_GET['hal'] : 1;
+$awalData = ($jlhDataperHal * $halAktif) - $jlhDataperHal;
+
+/*
+    * Untuk menghitung jlh data
+
+    $result = mysqli_query($conn, "SELECT * FROM mahasiswa");
+    $jlhData = mysqli_num_rows($result);
+    var_dump($jlhData);
+
+    $jlhData = count(query("SELECT * FROM mahasiswa"));
+*/
+
+$mahasiswa = query("SELECT * FROM mahasiswa LIMIT $awalData,$jlhDataperHal");
+// dimulia dari index ke 0 dengan isi nya ada 3
 
 if (isset($_POST['cari'])) {
     $mahasiswa = cari($_POST['keyword']);
@@ -22,8 +45,8 @@ if (isset($_POST['cari'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mahasiswa</title>
-    <link rel="stylesheet" type="text/css" href="../utility/style.css" />
-    <link rel="stylesheet" href="../SCSS/CSS/table.css">
+    <link rel="stylesheet" type="text/css" href="../utility/index.css" />
+    <link rel="stylesheet" href="../utility/table.css">
     <style>
         img {
             height: 75px;
@@ -43,23 +66,30 @@ if (isset($_POST['cari'])) {
             </a>
         </div>
         <div class="cari">
-            <form action="" method="post">
-                <table>
-                    <tr>
-                        <td>
-                            <input type="text" name="keyword" size="25" autofocus placeholder="masukkan keyword pencarian..." autocomplete="off">
-                        </td>
-                        <td>
-                            <button type="submit" name="cari">
-                                <img src="../utility/search.svg" alt="">
-                            </button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-        <div style="overflow: auto;">
             <table>
+                <tr>
+                    <td>
+                        <input type="text" id="keyword" size="25" autofocus placeholder="masukkan keyword pencarian..." autocomplete="off">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="pagination">
+            <div>
+                Jumlah Halaman : <?= $jlhHal ?>
+            </div>
+            <?php if ($_GET['hal'] > $jlhHal) : ?>
+                <label for="pagination" style="color: red;">Halaman <?= $_GET['hal'] ?> tidak ada, hanya ada <?= $jlhHal ?> halaman </label>
+            <?php else : ?>
+                <label for="pagination">Halaman : <?= $_GET['hal'] ?></label>
+            <?php endif ?>
+            <br>
+            <input style="width: 200px;padding: 5px;" type='number' name='pagination' id='pagination' placeholder="masukkan no halaman">
+            <input type="button" value="Cari" name="submit" onclick="cariHal()">
+            <br>
+        </div>
+        <div id="container">
+            <table class="greenTable">
                 <caption>
                     <h1>Table Data Mahasiswa</h1>
                 </caption>
@@ -85,7 +115,7 @@ if (isset($_POST['cari'])) {
                     foreach ($mahasiswa as $mhs) :
                     ?>
                         <tr>
-                            <td><?= $i ?></td>
+                            <td><?= $i + $awalData ?></td>
                             <td><?= $mhs['mhs_nim'] ?></td>
                             <td><?= $mhs['mhs_nama'] ?></td>
                             <td><?= $mhs['mhs_alamat'] ?></td>
@@ -115,6 +145,7 @@ if (isset($_POST['cari'])) {
     <?php
     include_once "../home/footer.php";
     ?>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

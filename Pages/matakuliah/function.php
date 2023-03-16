@@ -51,3 +51,14 @@ function tambah($data)
     mysqli_query($conn, $query);
     return mysqli_affected_rows($conn);
 }
+
+function cari($keyword)
+{
+    $query = "SELECT * FROM matkul 
+    WHERE
+    matkul_kd LIKE '%$keyword' OR
+    matkul_nama LIKE '%$keyword%' OR
+    matkul_sks LIKE '%$keyword%'
+    ";
+    return query($query);
+}

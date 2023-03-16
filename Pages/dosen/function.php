@@ -65,7 +65,7 @@ function tambah($data)
 
 function cari($keyword)
 {
-    $query = "SELECT * FROM mahasiswa 
+    $query = "SELECT * FROM dosen 
     WHERE
     dsn_nidn LIKE '%$keyword' OR
     dsn_nama LIKE '%$keyword%' OR

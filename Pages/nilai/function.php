@@ -11,7 +11,7 @@ function hapus($nilai_id)
 function ubah($data)
 {
     global $conn;
-
+    
     $nilai_sem = htmlspecialchars($data['nilai_sem']);
     $mhs_nim = htmlspecialchars($data['mhs_nim']);
     $matkul_kd = htmlspecialchars($data['matkul_kd']);

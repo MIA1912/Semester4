@@ -1,6 +1,30 @@
 <?php
 session_start();
+
+if (isset($_SESSION["login"])) {
+    header('location:../home/index.php');
+    exit;
+}
+$conn = mysqli_connect("localhost", "root", "", "db_ilham");
+if (isset($_POST['login'])) {
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $result = mysqli_query($conn, "SELECT * FROM admin WHERE username = '$username' AND password = '$password'");
+
+    $cek = mysqli_num_rows($result);
+    if ($cek === 1) {
+        $_SESSION['login'] = true;
+
+        header('location:../home/index.php');
+        exit;
+    }
+
+    $error = true;
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +74,9 @@ session_start();
 
         td {
             font-family: "Lato", sans-serif;
+            padding: 5px;
         }
+
 
         table {
             width: fit-content;
@@ -103,16 +129,21 @@ session_start();
     <div id="parentBox">
         <div id="childBox">
             <h1>Login</h1>
-            <form action="login_proses.php" method="post">
+            <?php if (isset($error)) : ?>
+                <div style="color: red;">
+                    Mohon maaf, username atau password anda ada yang salah
+                </div>
+            <?php endif; ?>
+            <form action="" method="post">
                 <table>
                     <tr>
                         <td>Username</td>
-                        <td>:</td>
+                        <td>&nbsp;</td>
                         <td><input type="text" name="username" required></td>
                     </tr>
                     <tr>
                         <td>Password</td>
-                        <td>:</td>
+                        <td>&nbsp;</td>
                         <td><input type="password" name="password" required></td>
                     </tr>
                 </table>

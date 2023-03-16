@@ -17,12 +17,12 @@
         <aside>
             <ul>
                 <li><a href="../home/index.php">Dashboard</a></li>
-                <li><a href="../kelas/kelas.php">Kelas</a></li>
-                <li><a href="../prodi/prodi.php">Prodi</a></li>
-                <li><a href="../dosen/dosen.php">Dosen</a></li>
-                <li><a href="../matakuliah/matakuliah.php">Mata Kuliah</a></li>
-                <li><a href="../mahasiswa/mahasiswa.php">Mahasiswa</a></li>
-                <li><a href="../nilai/nilai.php">Nilai</a></li>
+                <li><a href="../kelas/kelas.php?hal=1">Kelas</a></li>
+                <li><a href="../prodi/prodi.php?hal=1">Prodi</a></li>
+                <li><a href="../dosen/dosen.php?hal=1">Dosen</a></li>
+                <li><a href="../matakuliah/matakuliah.php?hal=1">Mata Kuliah</a></li>
+                <li><a href="../mahasiswa/mahasiswa.php?hal=1">Mahasiswa</a></li>
+                <li><a href="../nilai/nilai.php?hal=1">Nilai</a></li>
                 <li>
                     <br>
                     <br>

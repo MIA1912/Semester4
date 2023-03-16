@@ -7,8 +7,14 @@ if (!isset($_SESSION['login'])) {
 
 require_once "function.php";
 require_once "../utility/conSQL.php";
-$dosen = query("SELECT * FROM dosen");
 
+$jlhDataperHal = 4;
+$jlhData = count(query("SELECT * FROM dosen"));
+$jlhHal = ceil($jlhData / $jlhDataperHal);
+$halAktif = (isset($_GET['hal'])) ? $_GET['hal'] : 1;
+$awalData = ($jlhDataperHal * $halAktif) - $jlhDataperHal;
+
+$dosen = query("SELECT * FROM dosen LIMIT $awalData,$jlhDataperHal");
 
 if (isset($_POST['cari'])) {
     $dosen = cari($_POST['keyword']);
@@ -23,8 +29,8 @@ if (isset($_POST['cari'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dosen</title>
-    <link rel="stylesheet" type="text/css" href="../utility/style.css" />
-    <link rel="stylesheet" href="../SCSS/CSS/table.css">
+    <link rel="stylesheet" type="text/css" href="../utility/index.css" />
+    <link rel="stylesheet" href="../utility/table.css">
     <style>
         .cari table {
             margin-top: 25px;
@@ -43,65 +49,75 @@ if (isset($_POST['cari'])) {
             </a>
         </div>
         <div class="cari">
-            <form action="" method="post">
-                <table>
-                    <tr>
-                        <td>
-                            <input type="text" name="keyword" size="25" autofocus placeholder="masukkan keyword pencarian..." autocomplete="off">
-                        </td>
-                        <td>
-                            <button type="submit" name="cari">
-                                <img src="../utility/search.svg" alt="">
-                            </button>
-                        </td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-        <table>
-            <caption>
-                <h1>Table Data Dosen</h1>
-            </caption>
-            <thead>
+            <table>
                 <tr>
-                    <th>No.</th>
-                    <th>dsn_nidn</th>
-                    <th>dsn_nama</th>
-                    <th>dsn_alamat</th>
-                    <th>dsn_jenkel</th>
-                    <th>dsn_agama</th>
-                    <th>dsn_no_hp</th>
-                    <th colspan="2">Aksi</th>
+                    <td>
+                        <input type="text" id="keyword" size="25" autofocus placeholder="masukkan keyword pencarian..." autocomplete="off">
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php
-                $i = 1;
-                foreach ($dosen as $dsn) :
-                ?>
+            </table>
+        </div>
+        <div class="pagination">
+            <div>
+                Jumlah Halaman : <?= $jlhHal ?>
+            </div>
+            <?php if ($_GET['hal'] > $jlhHal) : ?>
+                <label for="pagination" style="color: red;">Halaman <?= $_GET['hal'] ?> tidak ada, hanya ada <?= $jlhHal ?> halaman </label>
+            <?php else : ?>
+                <label for="pagination">Halaman : <?= $_GET['hal'] ?></label>
+            <?php endif ?>
+            <br>
+            <input style="width: 200px;padding: 5px;" type='number' name='pagination' id='pagination' placeholder="masukkan no halaman">
+            <input type="button" value="Cari" name="submit" onclick="cariHal()">
+            <br>
+        </div>
+        <div id="container">
+            <table class="greenTable">
+                <caption>
+                    <h1>Table Data Dosen</h1>
+                </caption>
+                <thead>
                     <tr>
-                        <td><?= $i ?></td>
-                        <td><?= $dsn["dsn_nidn"] ?></td>
-                        <td><?= $dsn["dsn_nama"] ?></td>
-                        <td><?= $dsn["dsn_alamat"] ?></td>
-                        <td><?= $dsn["dsn_jenkel"] ?></td>
-                        <td><?= $dsn["dsn_agama"] ?></td>
-                        <td><?= $dsn["dsn_no_hp"] ?></td>
-                        <td class="ubah">
-                            <a href="ubah.php?dsn_nidn=<?= $dsn["dsn_nidn"]; ?>">Ubah</a>
-                        </td>
-                        <td class="hapus">
-                            <a href="hapus.php?dsn_nidn=<?= $dsn["dsn_nidn"]; ?>" onclick="return confirm('yakin?')">Hapus</a>
-                        </td>
+                        <th>No.</th>
+                        <th>dsn_nidn</th>
+                        <th>dsn_nama</th>
+                        <th>dsn_alamat</th>
+                        <th>dsn_jenkel</th>
+                        <th>dsn_agama</th>
+                        <th>dsn_no_hp</th>
+                        <th colspan="2">Aksi</th>
                     </tr>
-                    <?php $i++ ?>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php
+                    $i = 1;
+                    foreach ($dosen as $dsn) :
+                    ?>
+                        <tr>
+                            <td><?= $i ?></td>
+                            <td><?= $dsn["dsn_nidn"] ?></td>
+                            <td><?= $dsn["dsn_nama"] ?></td>
+                            <td><?= $dsn["dsn_alamat"] ?></td>
+                            <td><?= $dsn["dsn_jenkel"] ?></td>
+                            <td><?= $dsn["dsn_agama"] ?></td>
+                            <td><?= $dsn["dsn_no_hp"] ?></td>
+                            <td class="ubah">
+                                <a href="ubah.php?dsn_nidn=<?= $dsn["dsn_nidn"]; ?>">Ubah</a>
+                            </td>
+                            <td class="hapus">
+                                <a href="hapus.php?dsn_nidn=<?= $dsn["dsn_nidn"]; ?>" onclick="return confirm('yakin?')">Hapus</a>
+                            </td>
+                        </tr>
+                        <?php $i++ ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </main>
     <?php
     include_once "../home/footer.php";
     ?>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

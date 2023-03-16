@@ -7,7 +7,6 @@ if (!isset($_SESSION['login'])) {
 
 require_once 'function.php';
 require_once '../utility/conSQL.php';
-
 if (isset($_POST['submit'])) {
     // ketikkan vardump untuk melihat index arraynya
     // var_dump($_POST);

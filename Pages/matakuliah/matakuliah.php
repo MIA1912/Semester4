@@ -7,7 +7,19 @@ if (!isset($_SESSION['login'])) {
 
 require_once "function.php";
 require_once "../utility/conSQL.php";
-$matkul = query("SELECT * FROM matkul");
+
+$jlhDataperHal = 4;
+$jlhData = count(query("SELECT * FROM matkul"));
+$jlhHal = ceil($jlhData / $jlhDataperHal);
+// ceil adalah function untuk mengubah pecahan ke decimal
+$halAktif = (isset($_GET['hal'])) ? $_GET['hal'] : 1;
+$awalData = ($jlhDataperHal * $halAktif) - $jlhDataperHal;
+
+$matkul = query("SELECT * FROM matkul LIMIT $awalData,$jlhDataperHal");
+
+if (isset($_POST['cari'])) {
+    $matakuliah = cari($_POST['keyword']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +30,7 @@ $matkul = query("SELECT * FROM matkul");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mata Kuliah</title>
-    <link rel="stylesheet" href="../SCSS/CSS/table.css">
+    <link rel="stylesheet" href="../utility/table.css">
     <link rel="stylesheet" type="text/css" href="../utility/style.css" />
     <style>
         .cari table {
@@ -42,55 +54,68 @@ $matkul = query("SELECT * FROM matkul");
                 <table>
                     <tr>
                         <td>
-                            <input type="text" name="keyword" size="25" autofocus placeholder="masukkan keyword pencarian..." autocomplete="off">
-                        </td>
-                        <td>
-                            <button type="submit" name="cari">
-                                <img src="../utility/search.svg" alt="">
-                            </button>
+                            <input type="text" id="keyword" size="25" autofocus placeholder="masukkan keyword pencarian..." autocomplete="off">
                         </td>
                     </tr>
                 </table>
             </form>
         </div>
-        <table>
-            <caption>
-                <h1>Table Data Mata Kuliah</h1>
-            </caption>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>matkul_kd</th>
-                    <th>matkul_nama</th>
-                    <th>matkul_sks</th>
-                    <th colspan="2">Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $i = 1;
-                foreach ($matkul as $mk) :
-                ?>
+        <div class="pagination">
+            <div>
+                Jumlah Halaman : <?= $jlhHal ?>
+            </div>
+            <?php if ($_GET['hal'] > $jlhHal) : ?>
+                <label for="pagination" style="color: red;">Halaman <?= $_GET['hal'] ?> tidak ada, hanya ada <?= $jlhHal ?> halaman </label>
+            <?php else : ?>
+                <label for="pagination">Halaman : <?= $_GET['hal'] ?></label>
+            <?php endif ?>
+            <br>
+            <input style="width: 200px;padding: 5px;" type='number' name='pagination' id='pagination' placeholder="masukkan no halaman">
+            <input type="button" value="Cari" name="submit" onclick="cariHal()">
+            <br>
+        </div>
+        <div id="container">
+            <table class="greenTable">
+                <caption>
+                    <h1>Table Data Mata Kuliah</h1>
+                </caption>
+                <thead>
                     <tr>
-                        <td><?= $i ?></td>
-                        <td><?= $mk["matkul_kd"] ?></td>
-                        <td><?= $mk["matkul_nama"] ?></td>
-                        <td><?= $mk["matkul_sks"] ?></td>
-                        <td class="ubah">
-                            <a href="ubah.php?matkul_kd=<?= $mk["matkul_kd"]; ?>">Ubah</a>
-                        </td>
-                        <td class="hapus">
-                            <a href="hapus.php?matkul_kd=<?= $mk["matkul_kd"]; ?>" onclick="return confirm('yakin?')">Hapus</a>
-                        </td>
+                        <th>No.</th>
+                        <th>matkul_kd</th>
+                        <th>matkul_nama</th>
+                        <th>matkul_sks</th>
+                        <th colspan="2">Aksi</th>
                     </tr>
-                    <?php $i++ ?>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php
+                    $i = 1;
+                    foreach ($matkul as $mk) :
+                    ?>
+                        <tr>
+                            <td><?= $i ?></td>
+                            <td><?= $mk["matkul_kd"] ?></td>
+                            <td><?= $mk["matkul_nama"] ?></td>
+                            <td><?= $mk["matkul_sks"] ?></td>
+                            <td class="ubah">
+                                <a href="ubah.php?matkul_kd=<?= $mk["matkul_kd"]; ?>">Ubah</a>
+                            </td>
+                            <td class="hapus">
+                                <a href="hapus.php?matkul_kd=<?= $mk["matkul_kd"]; ?>" onclick="return confirm('yakin?')">Hapus</a>
+                            </td>
+                        </tr>
+                        <?php $i++ ?>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </main>
     <?php
     include_once "../home/footer.php";
     ?>
+    <script src="js/script.js"></script>
+
 </body>
 
 </html>
